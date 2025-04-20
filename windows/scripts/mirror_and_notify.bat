@@ -2,19 +2,19 @@
 setlocal
 
 set SRC=D:\Data
-set DEST=E:\Backup
+set DEST=B:\Backup
 
 robocopy %SRC% %DEST% /MIR
 set EXITCODE=%ERRORLEVEL%
 
 set MSG=
-if %EXITCODE%==0 set MSG=Keine Dateien kopiert. Alles aktuell.
-if %EXITCODE%==1 set MSG=Alle Dateien erfolgreich kopiert.
-if %EXITCODE%==2 set MSG=Zusätzliche Dateien im Zielverzeichnis.
-if %EXITCODE%==3 set MSG=Einige Dateien kopiert, zusätzliche vorhanden.
-if %EXITCODE%==5 set MSG=Einige Dateien kopiert mit Dateikonflikten.
-if %EXITCODE%==6 set MSG=Zusätzliche und nicht übereinstimmende Dateien vorhanden.
-if %EXITCODE%==7 set MSG=Dateien kopiert, mit Konflikten und zusätzlichen Dateien.
+if %EXITCODE%==0 set MSG=Kopiervorgang uebersprungen. Alle Dateien sind bereits im Zielverzeichnis vorhanden.
+if %EXITCODE%==1 set MSG=Alle Dateien wurden erfolgreich kopiert.
+if %EXITCODE%==2 set MSG=Es gibt einige zusaetzliche Dateien im Zielverzeichnis, die nicht im Quellverzeichnis vorhanden sind. Es wurden keine Dateien kopiert.
+if %EXITCODE%==3 set MSG=Einige Dateien wurden kopiert. Zusaetzliche Dateien waren vorhanden. Es wurde kein Fehler erreicht.
+if %EXITCODE%==5 set MSG=Einige Dateien wurden kopiert. Es gab einige Dateikonflikte. Es wurde kein Fehler erreicht.
+if %EXITCODE%==6 set MSG=Es sind zusaetzliche Dateien und nicht uebereinstimmende Dateien vorhanden. Es wurden keine Dateien kopiert, und es wurden keine Fehler gefunden. Das bedeutet, dass die Dateien bereits im Zielverzeichnis vorhanden sind.
+if %EXITCODE%==7 set MSG=Dateien wurden kopiert, ein Dateikonflikt war vorhanden, und es waren zusaetzliche Dateien vorhanden.
 if %EXITCODE%==8 set MSG=Fehler: Mehrere Dateien wurden nicht kopiert.
 
 if not defined MSG set MSG=Unbekannter Robocopy-EXITCODE: %EXITCODE%
