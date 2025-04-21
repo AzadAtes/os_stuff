@@ -4,7 +4,26 @@ setlocal
 set SRC=D:\Data
 set DEST=B:\Backup
 
-robocopy %SRC% %DEST% /MIR
+set SCRIPT_DIR=%~dp0
+set LOG_DIR=%SCRIPT_DIR%log
+if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
+
+for /f "tokens=1-3 delims=." %%a in ("%date%") do (
+    set DD=%%a
+    set MM=%%b
+    set YYYY=%%c
+)
+
+for /f "tokens=1-3 delims=:.," %%h in ("%time%") do (
+    set HH=%%h
+    set MIN=%%i
+    set SS=%%j
+)
+
+set LOGFILE=%LOG_DIR%\backup_%YYYY%.%MM%.%DD%_%HH%-%MIN%-%SS%.log
+
+REM --- Run robocopy with logging ---
+robocopy %SRC% %DEST% /MIR /LOG+:"%LOGFILE%"
 set EXITCODE=%ERRORLEVEL%
 
 set MSG=
