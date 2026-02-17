@@ -22,6 +22,8 @@ hs.hotkey.bind({"cmd"}, "q", function()
         and #frontmostApp:allWindows() <= 1
         and frontmostApp:name() ~= "Finder"
         and frontmostApp:name() ~= "OrbStack"
+        and frontmostApp:name() ~= "Microsoft Teams"
+        and frontmostApp:name() ~= "Microsoft Outlook"
     then
         frontmostApp:kill()
     elseif focusedWindow then
@@ -36,5 +38,3 @@ end)
 
 -- Notify on successful reload
 hs.alert.show("config loaded")
-
-
